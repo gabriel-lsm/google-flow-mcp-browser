@@ -1,0 +1,15 @@
+__pycache__/
+browser_profile/
+midias/
+*.pyc
+.env
+.DS_Store
+*.html
+*.png
+scratch_*.py
+debug_*.py
+take_screenshot*.py
+open_login.py
+find_workspace.py
+inspect_dom.py
+tool_*.json
