@@ -1922,9 +1922,9 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
         try:
             s_name = download.suggested_filename or ""
             
-            if "image" in download.url or s_name.endswith(".png") or s_name.endswith(".jpg"):
+            if "image" in download.url or s_name.endswith(".png") or s_name.endswith(".jpg") or s_name.endswith(".webp"):
                 ext = "png"
-            elif "video" in download.url or "trpc" in download.url or s_name.endswith(".mp4") or s_name.endswith(".webm"):
+            elif s_name.endswith(".mp4") or s_name.endswith(".webm"):
                 ext = "mp4"
             else:
                 ext = "mp4" if last_media_type == "video" else "png"
@@ -2097,8 +2097,6 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
 
                             if "image" in src:
                                 ext = "png"
-                            elif "trpc/media" in src or "getMediaUrlRedirect" in src or "video" in src:
-                                ext = "mp4"
                             else:
                                 ext = "mp4" if last_media_type == "video" else "png"
                             
