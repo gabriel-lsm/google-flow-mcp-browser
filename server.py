@@ -805,6 +805,21 @@ async def _click_initial_dialogs(page: Page) -> None:
     return False  # Não encontrado — não-fatal, continua normalmente
 
 
+async def _ensure_agent_active(page: Page) -> None:
+    """Verifica e ativa o botão de Agent se estiver desativado."""
+    for selector in SELECTORS["agent_toggle_button"]:
+        try:
+            toggle_btn = await page.query_selector(selector)
+            if toggle_btn and await toggle_btn.is_visible():
+                is_active = await toggle_btn.evaluate("el => el.getAttribute('aria-pressed') === 'true' || el.classList.contains('active') || el.classList.contains('mat-mdc-button-active')")
+                if not is_active:
+                    await toggle_btn.click()
+                    await asyncio.sleep(1.5)
+                return
+        except Exception:
+            continue
+
+
 async def _dismiss_overlays(page: Page) -> None:
     """
     Fecha overlays/modais que possam bloquear a interação com o editor.
