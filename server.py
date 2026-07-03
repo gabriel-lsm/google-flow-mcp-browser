@@ -48,6 +48,7 @@ FLOW_URL = "https://labs.google/fx/tools/flow/project/new"
 FLOW_AGENT_URL = "https://labs.google/fx/tools/flow/project/new"
 BROWSER_STATE_PATH = Path(__file__).parent / "browser_state.json"
 MIDIAS_DIR = Path(__file__).parent / "midias"
+DOWNLOADED_MEDIA_LOG_PATH = MIDIAS_DIR / ".downloaded_media.json"
 IMAGE_MAX_QUANTITY = 15
 VIDEO_MAX_QUANTITY = 5
 IMAGE_GENERATION_TIMEOUT = 180   # segundos
@@ -182,13 +183,12 @@ SELECTORS = {
     ],
     # Botões de aprovação/confirmação que o agent exibe no chat
     "agent_approve_button": [
-        "text=\"Approve, do not ask again\"",
-        "text=\"Approve\"",
-        "text=\"Yes\"",
-        "text=\"Confirm\"",
-        "text=\"Continue\"",
-        "text=\"Aprovar\"",
+        "button:has-text('Approve, do not ask again')",
         "button:has-text('Approve')",
+        "button:has-text('Yes')",
+        "button:has-text('Confirm')",
+        "button:has-text('Continue')",
+        "button:has-text('Aprovar')",
         "[role='button']:has-text('Approve')",
         "button[aria-label*='approve' i]",
     ],
@@ -252,6 +252,8 @@ _browser_state: Dict[str, Any] = {
     "page": None,
     "is_ready": False,
     "last_media_type": None,
+    "status": "STOPPED",
+    "monitor_task": None,
 }
 
 
@@ -313,6 +315,10 @@ class ManageSessionInput(BaseModel):
     login_confirmed: bool = Field(
         default=False,
         description="Defina como True após o usuário humano ter realizado o login manualmente no browser aberto",
+    )
+    project_url: Optional[str] = Field(
+        default=None,
+        description="URL do projeto a ser aberto (opcional). Use 'new' para forçar novo projeto. Se nulo, cria um novo por padrão.",
     )
 
 
@@ -403,6 +409,10 @@ class AwaitDownloadInput(BaseModel):
     download_dir: Optional[str] = Field(
         default=None,
         description="Diretório de destino para os downloads. Padrão: ./midias/",
+    )
+    file_prefix: Optional[str] = Field(
+        default=None,
+        description="Prefixo customizado para os arquivos baixados (ex: 'gatinhos_fofos').",
     )
 
 
@@ -677,7 +687,55 @@ async def _inject_text_via_fiber(page: Page, text: str) -> bool:
     return True
 
 
-async def _ensure_agent_active(page: Page) -> bool:
+def _get_media_id_from_url(url: str) -> Optional[str]:
+    """Extrai um ID unico (UUID) a partir da URL da midia (imagem ou video)."""
+    import urllib.parse
+    parsed = urllib.parse.urlparse(url)
+    
+    # Caso 1: videos em /fx/api/trpc/media.getMediaUrlRedirect?name=UUID
+    if "media.getMediaUrlRedirect" in parsed.path:
+        query = urllib.parse.parse_qs(parsed.query)
+        if "name" in query:
+            return query["name"][0]
+            
+    # Caso 2: imagens em /image/UUID?Expires=...
+    if "image/" in parsed.path:
+        parts = parsed.path.split("/")
+        return parts[-1]
+        
+    # Fallback genérico: se contiver trpc/media/UUID
+    if "trpc/media" in parsed.path:
+        parts = parsed.path.split("/")
+        return parts[-1]
+        
+    return None
+
+def _is_media_downloaded(media_id: str) -> bool:
+    """Verifica se o ID da midia ja foi baixado anteriormente."""
+    if not DOWNLOADED_MEDIA_LOG_PATH.exists():
+        return False
+    try:
+        with open(DOWNLOADED_MEDIA_LOG_PATH, "r") as f:
+            data = json.load(f)
+            return media_id in data
+    except Exception:
+        return False
+
+def _mark_media_downloaded(media_id: str):
+    """Registra o ID da midia no log oculto."""
+    data = set()
+    if DOWNLOADED_MEDIA_LOG_PATH.exists():
+        try:
+            with open(DOWNLOADED_MEDIA_LOG_PATH, "r") as f:
+                data = set(json.load(f))
+        except Exception:
+            pass
+    data.add(media_id)
+    with open(DOWNLOADED_MEDIA_LOG_PATH, "w") as f:
+        json.dump(list(data), f)
+
+
+async def _click_initial_dialogs(page: Page) -> None:
     """
     Garante que o botão 'Agent' do Google Flow está ativado antes de submeter um prompt.
 
@@ -850,6 +908,18 @@ async def _submit_and_verify(page: Page) -> bool:
     while time.time() < deadline:
         await asyncio.sleep(0.5)
         try:
+            # --- INTEGRAÇÃO DO DOM WATCHER ---
+            try:
+                current_state = await check_page_state(page)
+                if current_state == "error_modal" or current_state == "error_detected":
+                    return _error_response(
+                        "GENERATION_ERROR",
+                        f"O Google Flow exibiu um erro durante o submit (Estado: {current_state})."
+                    )
+            except Exception:
+                pass
+            # ---------------------------------
+            
             # Verificar INPUT do prompt ficou vazio
             input_content = await page.evaluate("""
             () => {
@@ -940,6 +1010,61 @@ async def _is_logged_in(page: Page) -> bool:
     return False
 
 
+
+async def _state_monitor_loop():
+    """Background task para monitorar estado da página (Agent, Loading, Idle)."""
+    global _browser_state
+    while True:
+        try:
+            page = _browser_state.get("page")
+            if not page or page.is_closed():
+                _browser_state["status"] = "STOPPED"
+                await asyncio.sleep(2)
+                continue
+
+            current_url = page.url
+            if "accounts.google.com" in current_url or "signin" in current_url:
+                _browser_state["status"] = "LOGIN_PAGE"
+                await asyncio.sleep(2)
+                continue
+
+            # Check agent waiting
+            agent_waiting = False
+            try:
+                for approve_sel in SELECTORS["agent_approve_button"]:
+                    approve_el = await page.query_selector(approve_sel)
+                    if approve_el and await approve_el.is_visible():
+                        agent_waiting = True
+                        break
+            except Exception:
+                pass
+            
+            if agent_waiting:
+                _browser_state["status"] = "AGENT_WAITING_APPROVAL"
+                await asyncio.sleep(1)
+                continue
+            
+            # Check loading
+            is_loading = False
+            try:
+                for sel in SELECTORS["loading_indicator"]:
+                    el = await page.query_selector(sel)
+                    if el and await el.is_visible():
+                        is_loading = True
+                        break
+            except Exception:
+                pass
+            
+            if is_loading:
+                _browser_state["status"] = "GENERATING"
+            else:
+                _browser_state["status"] = "IDLE"
+                
+        except Exception:
+            _browser_state["status"] = "ERROR"
+            
+        await asyncio.sleep(1)
+
 async def _get_or_create_browser(headless: bool = False) -> Optional[Page]:
     """Obtém ou cria instância do browser com contexto persistente."""
     global _browser_state
@@ -976,6 +1101,8 @@ async def _get_or_create_browser(headless: bool = False) -> Optional[Page]:
             page = await context.new_page()
 
         _browser_state["page"] = page
+        if not _browser_state.get("monitor_task") or _browser_state["monitor_task"].done():
+            _browser_state["monitor_task"] = asyncio.create_task(_state_monitor_loop())
         return page
 
     except Exception as e:
@@ -994,6 +1121,8 @@ async def _close_browser():
     except Exception:
         pass
     finally:
+        if _browser_state.get("monitor_task") and not _browser_state["monitor_task"].done():
+            _browser_state["monitor_task"].cancel()
         _browser_state = {
             "playwright": None,
             "browser": None,
@@ -1211,6 +1340,43 @@ O Agent já recebeu o prompt — você só precisa aprovar ou responder.
 # ─────────────────────────────────────────────────────────────────────────────
 
 @mcp.tool(
+    name="flow_check_status",
+    annotations={"title": "Checar Status do Flow", "readOnlyHint": True, "openWorldHint": True},
+)
+async def flow_check_status() -> str:
+    """Retorna o status atual lido pelo monitor de fundo."""
+    global _browser_state
+    return _success_response({
+        "status": _browser_state.get("status", "STOPPED"),
+        "url": _browser_state["page"].url if _browser_state.get("page") else None
+    })
+
+@mcp.tool(
+    name="flow_list_projects",
+    annotations={"title": "Listar Projetos do Google Flow", "readOnlyHint": True, "openWorldHint": True},
+)
+async def flow_list_projects() -> str:
+    """Lista projetos recentes da página inicial do Flow."""
+    global _browser_state
+    if not _browser_state.get("page") or _browser_state["page"].is_closed():
+        return _error_response("SESSION_NOT_READY", "Inicie a sessão primeiro.")
+    
+    page = _browser_state["page"]
+    try:
+        await page.goto("https://labs.google/fx/tools/flow", wait_until="domcontentloaded")
+        await asyncio.sleep(3)
+        projects = await page.evaluate("""() => {
+            return Array.from(document.querySelectorAll('a[href*="/project/"]')).map(a => ({
+                name: a.innerText || 'Projeto sem nome',
+                url: a.href
+            }));
+        }""")
+        return _success_response({"projects": projects})
+    except Exception as e:
+        return _error_response("ERROR", str(e))
+
+
+@mcp.tool(
     name="flow_manage_session",
     annotations={
         "title": "Gerenciar Sessão do Google Flow",
@@ -1268,42 +1434,15 @@ async def flow_manage_session(params: ManageSessionInput) -> str:
     try:
         page = await _get_or_create_browser(headless=False)
 
-        # Navegar para o Flow se não estivermos nele ou se estivermos na página de erro
         current_url = page.url
-        if "labs.google" not in current_url or "/project/new" in current_url:
-            await page.goto(FLOW_URL, wait_until="domcontentloaded", timeout=30000)
-            await asyncio.sleep(6)
+        # Decide onde navegar baseado no project_url
+        target_url = FLOW_URL
+        if params.project_url and params.project_url.lower() != "new":
+            target_url = params.project_url
 
-        # ── Verificar se estamos na landing page e precisamos entrar no workspace ──
-        try:
-            # Seletores para o botão de criar projeto / ir para workspace
-            create_selectors = [
-                "a[href*='/project/']",
-                "a:has-text('Create with Google Flow')",
-                "button:has-text('Create with Google Flow')",
-                "a:has-text('New project')",
-                "button:has-text('New project')"
-            ]
-            for sel in create_selectors:
-                elements = await page.query_selector_all(sel)
-                clicked = False
-                for el in elements:
-                    if await el.is_visible():
-                        # Evitar clicar em 'New project' se quisermos abrir um projeto existente
-                        if sel == "a[href*='/project/']":
-                            href = await el.get_attribute("href")
-                            if href and "/project/new" in href:
-                                continue
-                        
-                        await el.click()
-                        # Aguarda navegação para o workspace
-                        await asyncio.sleep(5)
-                        clicked = True
-                        break
-                if clicked:
-                    break
-        except Exception:
-            pass
+        if target_url not in current_url:
+            await page.goto(target_url, wait_until="domcontentloaded", timeout=30000)
+            await asyncio.sleep(6)
 
         # ── Tratamento de Erro do Google Flow: "Something went wrong" ──
         try:
@@ -1554,6 +1693,44 @@ async def flow_generate_media(params: GenerateMediaInput) -> str:
             "a[download], button[aria-label*='download' i], button[aria-label*='baixar' i], button[aria-label*='save' i]"
         ))
 
+        
+        # ── Injetar MutationObserver para capturar estritamente novas mídias ──
+        try:
+            await page.evaluate("""() => {
+                if (window.__media_observer) {
+                    window.__media_observer.disconnect();
+                }
+                window.__initial_srcs = Array.from(document.querySelectorAll('img[src], video[src]')).map(el => el.src);
+                window.new_media_urls = [];
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.nodeType === 1) { // ELEMENT_NODE
+                                // Se o nó for img ou video
+                                if (node.tagName === 'IMG' || node.tagName === 'VIDEO') {
+                                    const src = node.src;
+                                    if (src && !src.startsWith('data:') && !window.__initial_srcs.includes(src) && !window.new_media_urls.includes(src)) {
+                                        window.new_media_urls.push(src);
+                                    }
+                                }
+                                // Ou pesquisar dentro do nó inserido
+                                node.querySelectorAll('img[src], video[src]').forEach(el => {
+                                    const src = el.src;
+                                    if (src && !src.startsWith('data:') && !window.__initial_srcs.includes(src) && !window.new_media_urls.includes(src)) {
+                                        window.new_media_urls.push(src);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                });
+                // Observar o container principal ou document.body
+                observer.observe(document.body, { childList: true, subtree: true });
+                window.__media_observer = observer;
+            }""")
+        except Exception:
+            pass
+            
         # ── Submeter a solicitação com verificação de sucesso ──────────────────
         submit_ok = await _submit_and_verify(page)
 
@@ -1614,6 +1791,41 @@ async def flow_generate_media(params: GenerateMediaInput) -> str:
             "PLAYWRIGHT_ERROR",
             f"Erro Playwright ao injetar template: {type(e).__name__}: {str(e)}",
         )
+
+async def check_page_state(page: Page) -> str:
+    """Verifica o estado da página. Retorna 'generating', 'modal_open', 'error_detected', 'agent_requires_interaction', 'idle', etc."""
+    state = await page.evaluate('''() => {
+        // Verifica se ha modais abertos
+        const modals = document.querySelectorAll('dialog[open], [role="dialog"], [class*="modal"]');
+        for (const m of modals) {
+            if (m.offsetParent !== null && m.innerText.toLowerCase().includes("error")) return "error_modal";
+            if (m.offsetParent !== null) return "modal_open";
+        }
+        
+        // Verifica mensagens de erro na pagina
+        const errors = document.querySelectorAll('[class*="error"], [class*="alert"]');
+        for (const e of errors) {
+            if (e.offsetParent !== null && (e.innerText.toLowerCase().includes("failed") || e.innerText.toLowerCase().includes("error"))) return "error_detected";
+        }
+        
+        // Verifica geracao em andamento (loading skeletons)
+        const loaders = document.querySelectorAll('[aria-label*="loading" i], [aria-label*="generating" i], div[class*="skeleton" i], .loading, div[class*="progress" i]');
+        for (const l of loaders) {
+            if (l.offsetParent !== null) return "generating";
+        }
+        
+        // Verifica chat do agente lateral (necessita interacao?)
+        const agent_msg = document.querySelectorAll('[data-testid="agent-message"], div[class*="agentMsg"]');
+        if (agent_msg.length > 0) {
+            const last = agent_msg[agent_msg.length - 1];
+            if (last.innerText.toLowerCase().includes("approve") || last.innerText.toLowerCase().includes("confirm")) {
+                return "agent_requires_interaction";
+            }
+        }
+        
+        return "idle";
+    }''')
+    return state
 
 
 @mcp.tool(
@@ -1697,9 +1909,12 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
     async def handle_download(download):
         """Intercepta downloads iniciados pelo Flow e salva com nomenclatura padronizada."""
         try:
-            filename = download.suggested_filename or f"media_{len(downloaded_files) + 1}"
-            # Sanitizar filename — remover caracteres especiais
-            filename = "".join(c if c.isalnum() or c in "._-" else "_" for c in filename)
+            ext = "mp4" if last_media_type == "video" else "png"
+            if params.file_prefix:
+                filename = f"{params.file_prefix}_{len(downloaded_files) + 1}.{ext}"
+            else:
+                s_name = download.suggested_filename or f"media_{len(downloaded_files) + 1}.{ext}"
+                filename = "".join(c if c.isalnum() or c in "._-" else "_" for c in s_name)
             save_path = download_dir / f"{timestamp}_{filename}"
             await download.save_as(str(save_path))
             downloaded_files.append(str(save_path.absolute()))
@@ -1722,7 +1937,7 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
         while time.time() - start_time < timeout:
             elapsed = int(time.time() - start_time)
 
-                        # Rolar qualquer container para o topo: novas imagens aparecem no início do grid.
+            # Rolar qualquer container para o topo: novas imagens aparecem no início do grid.
             # O lazy loading do Flow só popula img[src] quando o elemento está na viewport.
             # Como o scroll fica numa div e não no window, precisamos rolar todos os containers com scroll.
             try:
@@ -1740,17 +1955,48 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
             except Exception:
                 pass
 
-# A geração concluiu se há novas mídias do Flow que não estavam na lista inicial.
-            # Usamos seletor restrito para ignorar avatares/UI que sempre existem na página, e ignoramos as antigas.
-            curr_img_srcs = await page.evaluate('(function(){var r=[];document.querySelectorAll("img:not([data-old=\'true\']),video:not([data-old=\'true\'])").forEach(function(el){var s=el.src||"";if(s.indexOf("trpc/media")>-1||s.indexOf("getMediaUrlRedirect")>-1||s.indexOf("storage.googleapis.com")>-1||el.tagName==="VIDEO"&&s)r.push(s);});return r;})()')
-            complete_element = any(src for src in curr_img_srcs if src not in initial_img_srcs)
+            # Obter URLs capturadas pelo MutationObserver
+            try:
+                curr_img_srcs = await page.evaluate('window.new_media_urls || []')
+            except Exception:
+                curr_img_srcs = []
+            
+            # --- INTEGRAÇÃO DO DOM WATCHER ---
+            try:
+                current_state = await check_page_state(page)
+                if current_state == "error_modal" or current_state == "error_detected":
+                    return _error_response(
+                        "GENERATION_ERROR",
+                        f"O Google Flow exibiu um erro durante a geração (Estado: {current_state})."
+                    )
+                elif current_state == "agent_requires_interaction":
+                    return json.dumps({
+                        "status": "agent_requires_interaction",
+                        "files": downloaded_files,
+                        "count": len(downloaded_files),
+                        "download_dir": str(download_dir.absolute()),
+                        "message": "O Agent do Google Flow abriu o chat lateral pedindo confirmação ou aprovação. Leia o estado com flow_read_agent_status e aprove com flow_reply_to_agent."
+                    }, ensure_ascii=False)
+            except Exception:
+                pass
+            # ---------------------------------
+            
+            # Filtro para garantir que são mídias reais de resultado
+            valid_srcs = []
+            for src in curr_img_srcs:
+                if 'trpc/media' in src or 'getMediaUrlRedirect' in src or 'storage.googleapis.com' in src or (last_media_type == 'video' and src):
+                    valid_srcs.append(src)
+                    
+            complete_element = len(valid_srcs) > 0
 
             # Verificar download buttons visíveis
             download_buttons = await page.query_selector_all(
                 "a[download], "
                 "button[aria-label*='download' i], "
                 "button[aria-label*='baixar' i], "
-                "button[aria-label*='save' i]"
+                "button[aria-label*='save' i], "
+                "button:has-text('download'), "
+                "div[role='button']:has-text('download')"
             )
 
             initial_buttons_count = _browser_state.get("initial_download_buttons", 0)
@@ -1766,11 +2012,17 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                 for btn in new_buttons[:15]:
                     try:
                         if await btn.is_visible():
+                            prev_count = len(downloaded_files)
                             await btn.click()
-                            await asyncio.sleep(1.5)
+                            # Aguarda compilação do MP4 pelo Google (pode levar vários segundos)
+                            for _ in range(15):
+                                if len(downloaded_files) > prev_count:
+                                    break
+                                await asyncio.sleep(1.0)
                     except Exception:
                         continue
-                else:
+                
+                if not downloaded_files:
                     # Fallback 1: hover sobre imagens para revelar botões de download ocultos
                     # O Flow usa hover-reveal para os controles de download
                     hover_selectors = [
@@ -1789,62 +2041,94 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                                         "a[download], "
                                         "button[aria-label*='download' i], "
                                         "button[aria-label*='baixar' i], "
-                                        "button[aria-label*='save' i]"
+                                        "button[aria-label*='save' i], "
+                                        "button:has-text('download'), "
+                                        "div[role='button']:has-text('download')"
                                     )
                                     for btn in new_btns:
                                         try:
                                             if await btn.is_visible():
+                                                prev_count = len(downloaded_files)
                                                 await btn.click()
-                                                await asyncio.sleep(1.5)
+                                                for _ in range(15):
+                                                    if len(downloaded_files) > prev_count:
+                                                        break
+                                                    await asyncio.sleep(1.0)
                                         except Exception:
                                             continue
                             except Exception:
                                 continue
 
-                    # Fallback 2: baixar via URL direta dos elementos de mídia
-                    # Usa seletor específico do Flow e ignora antigas.
-                    media_selectors = [
-                        "img:not([data-old='true'])[src*='trpc/media'], img:not([data-old='true'])[src*='getMediaUrlRedirect'], img:not([data-old='true'])[src*='storage.googleapis.com']",
-                        "video:not([data-old='true'])[src]",
-                    ]
-                    for selector in media_selectors:
-                        elements = await page.query_selector_all(selector)
-                        for elem in elements[:15]:
-                            try:
-                                src = await elem.evaluate("el => el.src")
-                                if src and src not in initial_img_srcs:
-                                    # Resolver URL relativa para absoluta (o Flow usa URLs /fx/api/...)
-                                    if src.startswith("/"):
-                                        from urllib.parse import urlparse
-                                        parsed = urlparse(page.url)
-                                        src = f"{parsed.scheme}://{parsed.netloc}{src}"
+                    # Fallback 2: baixar via URLs diretas capturadas pelo PerformanceObserver
+                    for src in valid_srcs:
+                        try:
+                            # 1. Obter o ID da midia e checar o log oculto
+                            media_id = _get_media_id_from_url(src)
+                            if media_id and _is_media_downloaded(media_id):
+                                continue  # Ja baixou antes!
+                                
+                            # Resolver URL relativa para absoluta (o Flow usa URLs /fx/api/...)
+                            if src.startswith("/"):
+                                from urllib.parse import urlparse
+                                parsed = urlparse(page.url)
+                                src = f"{parsed.scheme}://{parsed.netloc}{src}"
 
-                                    if not src.startswith("http"):
-                                        continue
-
-                                    # Determinar extensão
-                                    tag = await elem.evaluate("el => el.tagName.toLowerCase()")
-                                    ext = "mp4" if tag == "video" else "png"
-                                    filename = f"{timestamp}_media_{len(downloaded_files) + 1}.{ext}"
-                                    save_path = download_dir / filename
-
-                                    # Evitar duplicatas
-                                    if str(save_path.absolute()) in downloaded_files:
-                                        continue
-
-                                    # Download via Playwright request API (autentica automaticamente)
-                                    response = await page.request.get(src)
-                                    if response.ok:
-                                        body = await response.body()
-                                        save_path.write_bytes(body)
-                                        downloaded_files.append(str(save_path.absolute()))
-                            except Exception:
+                            if not (src.startswith("http") or src.startswith("blob:")):
                                 continue
+
+                            ext = "mp4" if last_media_type == "video" else "png"
+                            if params.file_prefix:
+                                filename = f"{params.file_prefix}_{len(downloaded_files) + 1}.{ext}"
+                            else:
+                                filename = f"{timestamp}_media_{len(downloaded_files) + 1}.{ext}"
+                            save_path = download_dir / filename
+
+                            # Evitar duplicatas (em vez de checar caminho absoluto, checamos para n baixar redundante)
+                            if str(save_path.absolute()) in downloaded_files:
+                                continue
+
+                            # Download de Blobs via JS (Playwright nativo falha em blobs MSE)
+                            if src.startswith("blob:"):
+                                b64_data = await page.evaluate(f'''async () => {{
+                                    try {{
+                                        const res = await fetch("{src}");
+                                        const blob = await res.blob();
+                                        return await new Promise((resolve, reject) => {{
+                                            const reader = new FileReader();
+                                            reader.onload = () => resolve(reader.result);
+                                            reader.onerror = reject;
+                                            reader.readAsDataURL(blob);
+                                        }});
+                                    }} catch (e) {{
+                                        return null;
+                                    }}
+                                }}''')
+                                if b64_data and "," in b64_data:
+                                    import base64
+                                    b64_str = b64_data.split(',')[1]
+                                    save_path.write_bytes(base64.b64decode(b64_str))
+                                    downloaded_files.append(str(save_path.absolute()))
+                                    if media_id:
+                                        _mark_media_downloaded(media_id)
+                                continue
+
+                            # Download via Playwright request API (URLs normais)
+                            response = await page.request.get(src)
+                            if response.ok:
+                                body = await response.body()
+                                save_path.write_bytes(body)
+                                downloaded_files.append(str(save_path.absolute()))
+                                if media_id:
+                                    _mark_media_downloaded(media_id)
+                        except Exception:
+                            continue
 
                 # Aguardar downloads completarem
                 await asyncio.sleep(2)
 
                 if downloaded_files:
+                    try: page.remove_listener("download", handle_download)
+                    except: pass
                     return _success_response({
                         "status": "download_complete",
                         "message": f"{len(downloaded_files)} arquivo(s) baixado(s) com sucesso.",
@@ -1854,6 +2138,8 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                         "elapsed_seconds": elapsed,
                     })
                 else:
+                    try: page.remove_listener("download", handle_download)
+                    except: pass
                     # Geração parece concluída mas sem arquivos identificados
                     return _success_response({
                         "status": "generation_complete_no_files",
@@ -1915,6 +2201,8 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
             await asyncio.sleep(POLL_INTERVAL)
 
         # ── Timeout ──
+        try: page.remove_listener("download", handle_download)
+        except: pass
         return _error_response(
             "GENERATION_TIMEOUT",
             f"A geração não concluiu dentro do timeout de {timeout} segundos.",
@@ -1926,6 +2214,8 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
         )
 
     except Exception as e:
+        try: page.remove_listener("download", handle_download)
+        except: pass
         return _error_response(
             "DOWNLOAD_ERROR",
             f"Erro durante o processo de download: {type(e).__name__}: {str(e)}",

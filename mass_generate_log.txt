@@ -1,0 +1,1656 @@
+Starting session...
+Session ready. Starting image generation.
+Generating images batch 1/5...
+Failed to start generation: {'status': 'error', 'error_code': 'DOM_SELECTOR_CHANGED', 'message': 'Campo de input do Flow não encontrado. O layout da página pode ter mudado.', 'details': {'suggestion': "Atualize os seletores CSS no servidor MCP (arquivo server.py, SELECTORS['input_field'])", 'current_url': 'https://labs.google/fx/tools/flow/project/bb6c9962-b8cd-4346-96b2-031c41c4ede4', 'action': 'Relate este erro ao desenvolvedor do MCP para atualizar os seletores Playwright'}}
+Generating images batch 2/5...
+Generation started, awaiting download...
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
+Waiting for download...
+Agent requires interaction! Reading status...
+Agent status: {
+  "status": "success",
+  "agent_active": false,
+  "agent_messages": [],
+  "requires_interaction": true,
+  "approve_buttons_found": [
+    "Approve, do not ask again",
+    "Approve"
+  ],
+  "sidebar_text": "",
+  "message": "Agent inativo. 0 mensagem(ns) capturada(s). Aprovação necessária."
+}
+Approving interaction...
+Reply response: {
+  "status": "success",
+  "approve_clicked": true,
+  "message_sent": false,
+  "actions_taken": [
+    "Clicou em botão 'Approve, do not ask again'"
+  ],
+  "message": "Clicou em botão 'Approve, do not ask again'",
+  "next_step": "Chame flow_await_download_media para retomar o aguardo da geração."
+}
