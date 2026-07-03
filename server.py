@@ -1529,6 +1529,24 @@ async def flow_generate_media(params: GenerateMediaInput) -> str:
                 },
             )
         
+        # Rolar os containers para cima ANTES de mapear o DOM inicial,
+        # para garantir que todas as mídias antigas carreguem seus src reais
+        # e não causem falsos positivos no await_download.
+        try:
+            await page.evaluate('''() => {
+                document.querySelectorAll('*').forEach(el => {
+                    if (el.scrollHeight > el.clientHeight && el.clientHeight > 0) {
+                        let overflow = window.getComputedStyle(el).overflowY;
+                        if (overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay') {
+                            el.scrollTop = 0;
+                        }
+                    }
+                });
+            }''')
+            await asyncio.sleep(0.5)
+        except Exception:
+            pass
+
         # Mapear as midias do Flow no DOM ANTES de submeter!
         # Usa seletor restrito (URLs trpc/media) para nao incluir avatares/icones da UI
         # que sempre existem na pagina e causariam falsos negativos na deteccao de conclusao.
