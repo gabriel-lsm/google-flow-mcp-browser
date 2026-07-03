@@ -1361,6 +1361,10 @@ async def flow_manage_session(params: ManageSessionInput) -> str:
                 })
 
             _browser_state["is_ready"] = True
+            
+            # Aguardar renderização das imagens lazy-loaded antigas
+            # para evitar que sejam lidas como "novas" na geração atual.
+            await asyncio.sleep(4.0)
 
             return _success_response({
                 "status": "ready",
