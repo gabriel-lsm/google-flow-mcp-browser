@@ -1514,10 +1514,9 @@ async def flow_generate_media(params: GenerateMediaInput) -> str:
         # e faz fallback automático para Fiber/keyboard caso necessário.
         #
         # Nota: A nova UI do Flow (2026) usa um campo de texto simples onde
-        # o usuário digita o prompt diretamente. O modelo e quantidade são
-        # controlados pelos botões integrados da UI, não via texto.
-        # Portanto, injetamos apenas o prompt (sem o template verboso).
-        prompt_to_inject = params.prompts[0] if len(params.prompts) == 1 else template
+        # o usuário digita o prompt. Para que o Flow ajuste modelo e formato
+        # automaticamente, DEVEMOS sempre injetar o template estrito.
+        prompt_to_inject = template
         injected = await _inject_text_into_input(page, prompt_to_inject, params.reference_image)
 
         if not injected:
