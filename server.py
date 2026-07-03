@@ -478,7 +478,18 @@ def _build_strict_template(
 
     prompts_formatted = " | ".join(prompt_lines)
 
-    template = f"GERAR: {quantity} {media_label_plural}, Formato {aspect_ratio.value}, Modelo {model.value if isinstance(model, ModelName) else str(model)}. PROMPTS: {prompts_formatted}"
+    strict_instruction = (
+        " [INSTRUÇÃO CRÍTICA PARA A IA DO FLOW: "
+        "Aja de forma 100% autônoma. Não faça perguntas, não peça esclarecimentos "
+        "e não inicie conversas. Apenas processe e gere a mídia solicitada imediatamente "
+        "sem abrir interações no chat.]"
+    )
+
+    template = (
+        f"GERAR: {quantity} {media_label_plural}, Formato {aspect_ratio.value}, "
+        f"Modelo {model.value if isinstance(model, ModelName) else str(model)}. "
+        f"PROMPTS: {prompts_formatted}{strict_instruction}"
+    )
 
     return template
 
@@ -1909,7 +1920,15 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
     async def handle_download(download):
         """Intercepta downloads iniciados pelo Flow e salva com nomenclatura padronizada."""
         try:
-            ext = "mp4" if last_media_type == "video" else "png"
+            s_name = download.suggested_filename or ""
+            
+            if "image" in download.url or s_name.endswith(".png") or s_name.endswith(".jpg"):
+                ext = "png"
+            elif "video" in download.url or "trpc" in download.url or s_name.endswith(".mp4") or s_name.endswith(".webm"):
+                ext = "mp4"
+            else:
+                ext = "mp4" if last_media_type == "video" else "png"
+                
             if params.file_prefix:
                 filename = f"{params.file_prefix}_{len(downloaded_files) + 1}.{ext}"
             else:
@@ -2076,7 +2095,13 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                             if not (src.startswith("http") or src.startswith("blob:")):
                                 continue
 
-                            ext = "mp4" if last_media_type == "video" else "png"
+                            if "image" in src:
+                                ext = "png"
+                            elif "trpc/media" in src or "getMediaUrlRedirect" in src or "video" in src:
+                                ext = "mp4"
+                            else:
+                                ext = "mp4" if last_media_type == "video" else "png"
+                            
                             if params.file_prefix:
                                 filename = f"{params.file_prefix}_{len(downloaded_files) + 1}.{ext}"
                             else:
