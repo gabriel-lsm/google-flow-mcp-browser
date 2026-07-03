@@ -182,16 +182,15 @@ SELECTORS = {
     ],
     # Botões de aprovação/confirmação que o agent exibe no chat
     "agent_approve_button": [
+        "text=\"Approve, do not ask again\"",
+        "text=\"Approve\"",
+        "text=\"Yes\"",
+        "text=\"Confirm\"",
+        "text=\"Continue\"",
+        "text=\"Aprovar\"",
         "button:has-text('Approve')",
-        "button:has-text('Yes')",
-        "button:has-text('Confirm')",
-        "button:has-text('Continue')",
-        "button:has-text('Aprovar')",
-        "button:has-text('Sim')",
-        "button:has-text('Confirmar')",
-        "button:has-text('Continuar')",
+        "[role='button']:has-text('Approve')",
         "button[aria-label*='approve' i]",
-        "button[aria-label*='confirm' i]",
     ],
     # Campo de input do chat lateral do Agent
     "agent_chat_input": [
