@@ -1533,28 +1533,21 @@ async def flow_generate_media(params: GenerateMediaInput) -> str:
                 },
             )
         
-        # Rolar os containers para cima ANTES de mapear o DOM inicial,
-        # para garantir que todas as mídias antigas carreguem seus src reais
-        # e não causem falsos positivos no await_download.
+        # Marcar todas as mídias antigas no DOM para ignorá-las depois.
+        # Isso evita de forma definitiva o problema de "falso positivo"
+        # quando imagens lazy-loaded antigas aparecem durante a geração.
         try:
             await page.evaluate('''() => {
-                document.querySelectorAll('*').forEach(el => {
-                    if (el.scrollHeight > el.clientHeight && el.clientHeight > 0) {
-                        let overflow = window.getComputedStyle(el).overflowY;
-                        if (overflow === 'auto' || overflow === 'scroll' || overflow === 'overlay') {
-                            el.scrollTop = 0;
-                        }
-                    }
+                document.querySelectorAll("img, video").forEach(el => {
+                    el.setAttribute('data-old', 'true');
                 });
             }''')
-            await asyncio.sleep(0.5)
         except Exception:
             pass
 
         # Mapear as midias do Flow no DOM ANTES de submeter!
-        # Usa seletor restrito (URLs trpc/media) para nao incluir avatares/icones da UI
-        # que sempre existem na pagina e causariam falsos negativos na deteccao de conclusao.
-        last_img_srcs = await page.evaluate('(function(){var r=[];document.querySelectorAll("img,video").forEach(function(el){var s=el.src||"";if(s.indexOf("trpc/media")>-1||s.indexOf("getMediaUrlRedirect")>-1||s.indexOf("storage.googleapis.com")>-1||el.tagName==="VIDEO"&&s)r.push(s);});return r;})()')
+        # Usa seletor restrito e ignora as mídias antigas marcadas.
+        last_img_srcs = await page.evaluate('(function(){var r=[];document.querySelectorAll("img:not([data-old=\'true\']),video:not([data-old=\'true\'])").forEach(function(el){var s=el.src||"";if(s.indexOf("trpc/media")>-1||s.indexOf("getMediaUrlRedirect")>-1||s.indexOf("storage.googleapis.com")>-1||el.tagName==="VIDEO"&&s)r.push(s);});return r;})()')
         _browser_state["last_img_srcs"] = last_img_srcs
 
         # Contar botões de download ANTES de submeter
@@ -1749,8 +1742,8 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                 pass
 
 # A geração concluiu se há novas mídias do Flow que não estavam na lista inicial.
-            # Usamos seletor restrito para ignorar avatares/UI que sempre existem na página.
-            curr_img_srcs = await page.evaluate('(function(){var r=[];document.querySelectorAll("img,video").forEach(function(el){var s=el.src||"";if(s.indexOf("trpc/media")>-1||s.indexOf("getMediaUrlRedirect")>-1||s.indexOf("storage.googleapis.com")>-1||el.tagName==="VIDEO"&&s)r.push(s);});return r;})()')
+            # Usamos seletor restrito para ignorar avatares/UI que sempre existem na página, e ignoramos as antigas.
+            curr_img_srcs = await page.evaluate('(function(){var r=[];document.querySelectorAll("img:not([data-old=\'true\']),video:not([data-old=\'true\'])").forEach(function(el){var s=el.src||"";if(s.indexOf("trpc/media")>-1||s.indexOf("getMediaUrlRedirect")>-1||s.indexOf("storage.googleapis.com")>-1||el.tagName==="VIDEO"&&s)r.push(s);});return r;})()')
             complete_element = any(src for src in curr_img_srcs if src not in initial_img_srcs)
 
             # Verificar download buttons visíveis
@@ -1810,10 +1803,10 @@ async def flow_await_download_media(params: AwaitDownloadInput) -> str:
                                 continue
 
                     # Fallback 2: baixar via URL direta dos elementos de mídia
-                    # Usa seletor específico do Flow para evitar baixar avatares e ícones da UI.
+                    # Usa seletor específico do Flow e ignora antigas.
                     media_selectors = [
-                        "img[src*='trpc/media'], img[src*='getMediaUrlRedirect'], img[src*='storage.googleapis.com']",
-                        "video[src]",
+                        "img:not([data-old='true'])[src*='trpc/media'], img:not([data-old='true'])[src*='getMediaUrlRedirect'], img:not([data-old='true'])[src*='storage.googleapis.com']",
+                        "video:not([data-old='true'])[src]",
                     ]
                     for selector in media_selectors:
                         elements = await page.query_selector_all(selector)
